@@ -1,6 +1,7 @@
 {
   "name": "create-bkite",
   "version": "0.0.1",
+  "type": "module",
   "main": "./bin/index.js",
   "bin": {
     "create-bkite": "bin/index.js"
@@ -10,5 +11,8 @@
   },
   "author": "Sree Gopal Saha",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "prompts": "^2.4.2"
+  }
 }
