@@ -5,12 +5,18 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import prompts from 'prompts'
 
-// Convert import.meta.url to __dirname
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const currentDir = process.cwd()
+const args = process.argv.slice(2)
+
 const sanitizeProjectName = (name) => {
     return name.trim().replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase()
+}
+
+const isValidPackageName = (name) => {
+    return /^(?:@[a-z\d\-*~][a-z\d\-*._~]*\/)?[a-z\d\-~][a-z\d\-._~]*$/.test(name)
 }
 
 const copyDir = (srcDir, destDir, projectName) => {
@@ -35,46 +41,55 @@ const copyDir = (srcDir, destDir, projectName) => {
     }
 }
 
-const main = async () => {
-    const { projectName } = await prompts({
+const promptProjectName = async () => {
+    const res = await prompts({
         type: 'text',
         name: 'projectName',
         message: 'Enter your project name:',
-        initial: 'my-js-app',
-        validate: (input) =>
-            input.trim() !== '' || 'Project name cannot be empty.',
+        initial: 'my-backend-app',
+        validate: (input) => input.trim() !== '' || 'Project name cannot be empty.',
     })
-
-    if (!projectName) {
-        console.log('Operation cancelled.')
-        process.exit(1)
-    }
-
-    const sanitized = sanitizeProjectName(projectName)
-    const targetDir = path.resolve(process.cwd(), sanitized)
-
-    const templateDir = path.resolve(__dirname, '../templates/template-js')
-
-    if (!fs.existsSync(templateDir)) {
-        console.error(`❌ Template directory not found at ${templateDir}`)
-        process.exit(1)
-    }
-
-    if (fs.existsSync(targetDir)) {
-        console.error(`❌ Directory "${sanitized}" already exists.`)
-        process.exit(1)
-    }
-
-    copyDir(templateDir, targetDir, sanitized)
-
-    console.log(`✅ Project "${sanitized}" created successfully!`)
-    console.log(`➡️  Run:`)
-    console.log(`   cd ${sanitized}`)
-    console.log(`   npm install`)
-    console.log(`   npm run dev`)
+    return sanitizeProjectName(res.projectName)
 }
 
-main().catch((err) => {
-    console.error(err)
+const templateDir = path.resolve(__dirname, '../templates/template-js')
+
+if (!fs.existsSync(templateDir)) {
+    console.error(`❌ Template directory not found at ${templateDir}`)
     process.exit(1)
-})
+}
+
+let projectName, targetDir
+
+// Case 1: No args => ask for name
+if (args.length === 0) {
+    projectName = await promptProjectName()
+    targetDir = path.join(currentDir, projectName)
+}
+
+// Case 2: `.` => current directory
+else if (args[0] === '.') {
+    targetDir = currentDir
+    projectName = sanitizeProjectName(path.basename(currentDir))
+}
+
+// Case 3: `npm create mycli@latest folder-name`
+else {
+    projectName = sanitizeProjectName(args[0])
+    targetDir = path.join(currentDir, projectName)
+}
+
+if (fs.existsSync(targetDir) && fs.readdirSync(targetDir).length > 0) {
+    console.error(`❌ Directory "${projectName}" already exists and is not empty.`)
+    process.exit(1)
+}
+
+copyDir(templateDir, targetDir, projectName)
+
+console.log(`\n✅ Project "${projectName}" created in "${targetDir}"`)
+if (targetDir !== currentDir) {
+    console.log(`\nNext steps:`)
+    console.log(`   cd ${projectName}`)
+}
+console.log(`   npm install`)
+console.log(`   npm run dev\n`)
