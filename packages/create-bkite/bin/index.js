@@ -24,7 +24,11 @@ const copyDir = (srcDir, destDir, projectName) => {
 
     for (const file of fs.readdirSync(srcDir)) {
         const src = path.join(srcDir, file)
-        const dest = path.join(destDir, file)
+
+        // Rename _gitignore to .gitignore
+        const destFileName = file === '_gitignore' ? '.gitignore' : file
+        const dest = path.join(destDir, destFileName)
+
         const stat = fs.statSync(src)
 
         if (stat.isDirectory()) {
