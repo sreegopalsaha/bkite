@@ -10,19 +10,27 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const sanitizeProjectName = (name) => {
-    name.trim().replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase()
+    return name.trim().replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase()
 }
 
-const copyDir = (srcDir, destDir) => {
+const copyDir = (srcDir, destDir, projectName) => {
     fs.mkdirSync(destDir, { recursive: true })
+
     for (const file of fs.readdirSync(srcDir)) {
         const src = path.join(srcDir, file)
         const dest = path.join(destDir, file)
         const stat = fs.statSync(src)
+
         if (stat.isDirectory()) {
-            copyDir(src, dest)
+            copyDir(src, dest, projectName)
         } else {
-            fs.copyFileSync(src, dest)
+            if (file === 'package.json') {
+                const pkg = JSON.parse(fs.readFileSync(src, 'utf-8'))
+                pkg.name = projectName
+                fs.writeFileSync(dest, JSON.stringify(pkg, null, 2) + '\n', 'utf-8')
+            } else {
+                fs.copyFileSync(src, dest)
+            }
         }
     }
 }
@@ -57,10 +65,13 @@ const main = async () => {
         process.exit(1)
     }
 
-    copyDir(templateDir, targetDir)
+    copyDir(templateDir, targetDir, sanitized)
 
     console.log(`✅ Project "${sanitized}" created successfully!`)
-    console.log(`➡️  Run: cd ${sanitized} && npm install`)
+    console.log(`➡️  Run:`)
+    console.log(`   cd ${sanitized}`)
+    console.log(`   npm install`)
+    console.log(`   npm run dev`)
 }
 
 main().catch((err) => {
