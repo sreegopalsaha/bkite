@@ -119,7 +119,7 @@ After generating your project:
 ```bash
 cd my-backend-app
 npm install
-npm run start
+npm run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) — your server is live.
