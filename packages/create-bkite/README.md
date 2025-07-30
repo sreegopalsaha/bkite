@@ -1,52 +1,69 @@
-# 🚀 BKITE ![npm](https://img.shields.io/npm/v/create-bkite) ![npm downloads](https://img.shields.io/npm/dt/create-bkite)
+<p align="center">
+  <a href="https://github.com/sreegopalsaha/bkite" target="_blank" rel="noopener noreferrer">
+    <img width="260" src="https://github.com/user-attachments/assets/8a7d37bf-ffb6-440e-a788-bf4cbc03d51d" alt="bkite logo">
+  </a>
+</p>
 
-**BKITE** is a fast and minimal CLI tool to **instantly scaffold a complete backend folder structure for Express.js** — similar to how create vite@latest works for frontend apps.
+<p align="center">
+  <a href="https://www.npmjs.com/package/create-bkite"><img src="https://img.shields.io/npm/v/create-bkite?color=blue&label=npm" alt="npm package"></a>
+  <a href="https://www.npmjs.com/package/create-bkite">
+    <img src="https://img.shields.io/npm/dt/create-bkite" alt="Total Downloads">
+  </a>
+</p>
 
-No config. No boilerplate mess. Just a clean backend, ready to build.
+<br/>
+
+# 🚀 BKITE — Instant Backend Starter
+
+**BKITE** is a CLI tool that helps you create a working Express.js backend in just a few seconds. No setup needed. It creates all the folders and files you need so you can start writing code right away.
+
+Whether you're a beginner learning Express or a pro needing to prototype something fast, BKITE gives you a production-ready structure in seconds.
+
+It’s designed for:
+
+* ✨ **Beginners** who want to learn Express with a real-world structure
+* 💼 **Developers** who need to quickly start backend apps
+* 🧱 **Hackathon teams** who don’t want to waste time on boilerplate
 
 ---
 
-## 🛠️ Usage
-
-To get started, run:
+## ⚡️ Quick Start
 
 ```bash
 npm create bkite@latest
 ```
 
-This will walk you through a few prompts and scaffold a fully working Express.js backend.
+Answer a few prompts — and boom 💥 — you’ve got a complete Express backend ready.
 
-You can also:
+Create in a folder:
 
-* Create a project in a specific directory:
+```bash
+npm create bkite@latest my-backend-app
+```
 
-  ```bash
-  npm create bkite@latest my-backend-app
-  ```
+Initialize in current directory:
 
-* Initialize in the current folder:
-
-  ```bash
-  npm create bkite@latest .
-  ```
+```bash
+npm create bkite@latest .
+```
 
 ---
 
-## 📁 Project Structure
+## 📁 What You Get
 
-After running the command, you’ll get:
+A clean, modular Express.js backend:
 
 ```
 my-backend-app/
 ├── src/
-│   ├── configs/             # DB & environment configs
-│   ├── controllers/         # Business logic
-│   ├── middlewares/         # Error & request handling
-│   ├── models/              # Mongoose models (if using MongoDB)
-│   ├── routes/              # Express route handlers
-│   ├── utils/               # Helpers like ApiError, ApiResponse
-│   ├── app.js               # Express app instance
-│   └── index.js             # Main server entry
+│   ├── configs/             # DB/env config files
+│   ├── controllers/         # All business logic
+│   ├── middlewares/         # Error, request handling
+│   ├── models/              # Mongoose schemas
+│   ├── routes/              # Express routers
+│   ├── utils/               # Common helpers
+│   ├── app.js               # Express instance
+│   └── index.js             # Server start point
 ├── .env
 ├── .gitignore
 ├── package.json
@@ -57,35 +74,31 @@ my-backend-app/
 
 ## ▶️ Run the Server
 
-Install and start your project:
-
 ```bash
 npm install
-npm run start
+npm run dev
 ```
 
-Server runs on: **[http://localhost:3000](http://localhost:3000)**
+Server runs at: **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## ✨ Features
+## 🔥 Why BKITE?
 
-* 🧠 **Prompt-driven setup**
-* 📁 **Clean modular structure**
-* 🔐 **Prebuilt CORS and error middleware**
-* ⚙️ **`.env` ready to configure**
+* 🧠 Prompt-powered setup
+* 📆 Clean modular structure
+* 🔐 Prebuilt CORS and error middleware
+* ⚙️ `.env` pre-configured
 
 ---
 
-## 🌱 Roadmap & Contributions
+## 🌱 Roadmap
 
-We're just getting started. Planned features:
+* [ ] TypeScript support
+* [ ] Choose DB: MongoDB, MySQL, PostgreSQL
+* [ ] ORM/ODM options: Prisma, Drizzle, Mongoose
 
-* [ ] Choose between **JavaScript or TypeScript**
-* [ ] Add support for **PostgreSQL, MySQL**, etc.
-* [ ] Toggle features like CORS, MongoDB, Auth, etc.
-
-👉 **We need contributors** to help bring this to life! Whether it's features, docs, or testing — PRs are very welcome.
+> **PRs are welcome!** Docs, features, tests — help us grow!
 
 ---
 
@@ -96,4 +109,10 @@ We're just getting started. Planned features:
 
 ---
 
-Just run `npm create bkite@latest` and start building your backend. Let's ship clean code faster.
+## ✅ TL;DR
+
+```bash
+npm create bkite@latest
+```
+
+That’s it. Clean backend, ready to code. Zero config, zero mess.
