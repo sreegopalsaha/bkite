@@ -1,0 +1,22 @@
+{
+  "name": "core-js-template",
+  "version": "1.0.0",
+  "description": "A basic, database-agnostic Express.js template.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Ashutosh Singh",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2"
+  }
+}
