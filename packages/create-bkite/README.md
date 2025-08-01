@@ -4,115 +4,103 @@
   </a>
 </p>
 
+<h1 align="center">BKITE — Instant Backend Starter</h1>
+
 <p align="center">
-  <a href="https://www.npmjs.com/package/create-bkite"><img src="https://img.shields.io/npm/v/create-bkite?color=blue&label=npm" alt="npm package"></a>
-  <a href="https://www.npmjs.com/package/create-bkite">
-    <img src="https://img.shields.io/npm/dt/create-bkite" alt="Total Downloads">
-  </a>
+  <strong>The fastest way to kickstart your Express.js backend project.</strong>
 </p>
 
-<br/>
-
-# 🚀 BKITE — Instant Backend Starter
-
-**BKITE** is a CLI tool that helps you create a working Express.js backend in just a few seconds. No setup needed. It creates all the folders and files you need so you can start writing code right away.
-
-Whether you're a beginner learning Express or a pro needing to prototype something fast, BKITE gives you a production-ready structure in seconds.
-
-It’s designed for:
-
-* ✨ **Beginners** who want to learn Express with a real-world structure
-* 💼 **Developers** who need to quickly start backend apps
-* 🧱 **Hackathon teams** who don’t want to waste time on boilerplate
+<p align="center">
+  <a href="https://www.npmjs.com/package/create-bkite"><img src="https://img.shields.io/npm/v/create-bkite?color=blue&label=npm" alt="npm package"></a>
+  <a href="https://www.npmjs.com/package/create-bkite"><img src="https://img.shields.io/npm/dt/create-bkite" alt="Total Downloads"></a>
+  <a href="https://discord.gg/p9GubC7ZMP"><img src="https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white&style=flat" alt="Discord"></a>
+</p>
 
 ---
 
-## ⚡️ Quick Start
+`bkite` is a command-line tool that instantly scaffolds a clean, production-ready **Express.js backend**. Stop wasting time on boilerplate and configuration. With one command, you get a scalable project structure so you can start coding immediately.
+
+## ✨ Features
+
+* **⚙️ Interactive CLI**: Simple prompts guide you through a quick setup.
+* **📁 Scalable Structure**: A modular, production-ready folder structure from the start.
+* **🔄 Core Functionality**: Comes with built-in error handling, CORS support, and `.env` setup.
+* **⚡ Blazing Fast**: Go from zero to a running server in seconds.
+
+---
+
+## 🚀 Usage
+
+### 1. Create Your Project
+
+Run the following command and follow the prompts:
 
 ```bash
 npm create bkite@latest
 ```
 
-Answer a few prompts — and boom 💥 — you’ve got a complete Express backend ready.
-
-Create in a folder:
+You can also specify a project name or target the current directory:
 
 ```bash
-npm create bkite@latest my-backend-app
+# Create in a new folder named 'my-app'
+npm create bkite@latest my-app
 ```
 
-Initialize in current directory:
-
 ```bash
+# Create in the current directory
 npm create bkite@latest .
 ```
 
----
+### 2. Start the Server
 
-## 📁 What You Get
+Once the project is generated, navigate into the directory:
 
-A clean, modular Express.js backend:
+```bash
+cd your-backend-app
+npm install
+npm run dev
+```
+
+Your new Express server will be live at `http://localhost:3000`.
+
+-----
+
+## 📁 What's Included?
+
+You get a clean, organized, and scalable project structure right out of the box.
 
 ```
 my-backend-app/
 ├── src/
-│   ├── configs/             # DB/env config files
-│   ├── controllers/         # All business logic
-│   ├── middlewares/         # Error, request handling
-│   ├── models/              # Mongoose schemas
-│   ├── routes/              # Express routers
-│   ├── utils/               # Common helpers
-│   ├── app.js               # Express instance
-│   └── index.js             # Server start point
+│   ├── configs/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   ├── app.js
+│   └── index.js
 ├── .env
 ├── .gitignore
 ├── package.json
 └── README.md
 ```
 
----
+-----
+## 💬 Community & Contributions
 
-## ▶️ Run the Server
+We welcome all contributions, big or small\! Even a tiny contribution can make a difference.
 
-```bash
-npm install
-npm run dev
-```
+To get started:
 
-Server runs at: **[http://localhost:3000](http://localhost:3000)**
+  * **Visit our GitHub repository** to understand our codebase: [https://github.com/sreegopalsaha/bkite](https://github.com/sreegopalsaha/bkite)
+  * **Make an issue** on GitHub to discuss your ideas with other contributors and admins: [https://github.com/sreegopalsaha/bkite/issues](https://github.com/sreegopalsaha/bkite/issues)
+  * Once aligned, you can **start coding**\!
 
----
+You can also **join our Discord server** to ask questions or collaborate with other contributors and admins: [Discord](https://discord.gg/p9GubC7ZMP)
 
-## 🔥 Why BKITE?
+## 🔗 Connect with the Creator
 
-* 🧠 Prompt-powered setup
-* 📆 Clean modular structure
-* 🔐 Prebuilt CORS and error middleware
-* ⚙️ `.env` pre-configured
-
----
-
-## 🌱 Roadmap
-
-* [ ] TypeScript support
-* [ ] Choose DB: MongoDB, MySQL, PostgreSQL
-* [ ] ORM/ODM options: Prisma, Drizzle, Mongoose
-
-> **PRs are welcome!** Docs, features, tests — help us grow!
-
----
-
-## 🤝 Contribute & Connect
-
-* GitHub: [sreegopalsaha/bkite](https://github.com/sreegopalsaha/bkite)
-* LinkedIn: [Sree Gopal Saha](https://www.linkedin.com/in/sreegopalsaha/)
-
----
-
-## ✅ TL;DR
-
-```bash
-npm create bkite@latest
-```
-
-That’s it. Clean backend, ready to code. Zero config, zero mess.
+* **GitHub:** [@sreegopalsaha](https://github.com/sreegopalsaha)
+* **LinkedIn:** [Sree Gopal Saha](https://www.linkedin.com/in/sreegopalsaha/)
+* **Twitter / X:** [@sreegopalsaha](https://x.com/sreegopalsaha)
