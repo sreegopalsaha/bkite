@@ -97,7 +97,7 @@ my-backend-app/
 
 We'd love your help to make `bkite` even better! Contributions of all sizes are welcome.
 
-Before you start, please read our **[CONTRIBUTING.md](https://www.google.com/search?q=https://github.com/sreegopalsaha/bkite/blob/main/CONTRIBUTING.md)** and our **[Code of Conduct](https://www.google.com/search?q=https://github.com/sreegopalsaha/bkite/blob/main/CODE_OF_CONDUCT.md)**.
+Before you start, please read our **[CONTRIBUTING.md](https://github.com/sreegopalsaha/bkite/blob/main/CONTRIBUTING.md)** and our **[Code of Conduct](https://github.com/sreegopalsaha/bkite/blob/main/CODE_OF_CONDUCT.md)**.
 
 ### Understanding the Monorepo
 
@@ -125,7 +125,7 @@ bkite/
 3. Make your changes, whether it's fixing a bug, adding a feature, or improving documentation.
 4. Open a pull request with a clear description of your changes.
 
-Check out the [open issues](https://www.google.com/search?q=https://github.com/sreegopalsaha/bkite/issues) to find a good place to start!
+Check out the [open issues](https://github.com/sreegopalsaha/bkite/issues) to find a good place to start!
 
 ## 🌱 Roadmap
 
@@ -137,7 +137,7 @@ We have big plans for `bkite`! Here's what we're working on next:
 * [ ] ORM/ODM support: Prisma, Drizzle.
 * [ ] Toggles for common middleware (e.g., authentication, logging).
 
-Have an idea? [Open an issue](https://www.google.com/search?q=https://github.com/sreegopalsaha/bkite/issues/new) or join the discussion on Discord.
+Have an idea? [Open an issue](https://github.com/sreegopalsaha/bkite/issues/new) or join the discussion on Discord.
 
 ## ❤️ Connect with Us
 
