@@ -2,20 +2,28 @@
   "name": "create-bkite",
   "version": "0.0.6",
   "type": "module",
-  "main": "./bin/index.js",
-  "bin": "bin/index.js",
+  "bin": {
+    "create-bkite": "bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sree Gopal Saha",
   "license": "MIT",
   "description": "CLI to scaffold a clean Express REST API backend with modern structure",
-  "keywords": ["cli", "express", "backend", "starter", "scaffold", "create-bkite"],
+  "keywords": [
+    "create-bkite",
+    "bkite",
+    "express",
+    "backend",
+    "starter",
+    "scaffold"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/sreegopalsaha/bkite"
   },
   "dependencies": {
-    "prompts": "^2.4.2"
+    "@clack/prompts": "^0.11.0"
   }
 }
