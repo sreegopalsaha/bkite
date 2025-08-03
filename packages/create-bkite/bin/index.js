@@ -1,99 +1,175 @@
 #!/usr/bin/env node
 
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import prompts from 'prompts'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { outro, isCancel, cancel, text, select, note, spinner, confirm } from '@clack/prompts'
+import { existsSync, readdirSync } from 'node:fs'
+import scanTemplates from '../utils/scanTemplates.js'
+import copyTemplate from '../utils/copyTemplate.js'
+import validateProjectName from '../utils/validateProjectName.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const TEMPLATES_DIR = path.resolve(__dirname, '../templates')
 
-const currentDir = process.cwd()
-const args = process.argv.slice(2)
+main().catch(err => {
+    console.error('✖ Error:', err.message)
+    process.exit(1)
+})
 
-const sanitizeProjectName = (name) => {
-    return name.trim().replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase()
-}
+async function main() {
+    try {
+        const argTarget = process.argv[2]
+        let targetDir = argTarget?.trim() || undefined
+        let projectName = targetDir
 
-const isValidPackageName = (name) => {
-    return /^(?:@[a-z\d\-*~][a-z\d\-*._~]*\/)?[a-z\d\-~][a-z\d\-._~]*$/.test(name)
-}
+        const cwd = process.cwd()
 
-const copyDir = (srcDir, destDir, projectName) => {
-    fs.mkdirSync(destDir, { recursive: true })
+        // If no argument provided, ask for project name
+        if (!targetDir) {
+            const defaultProjectName = 'my-bkite-app'
 
-    for (const file of fs.readdirSync(srcDir)) {
-        const src = path.join(srcDir, file)
+            projectName = await text({
+                message: 'Project name:',
+                defaultValue: defaultProjectName,
+                placeholder: 'my-backend-app',
+                validate: validateProjectName
+            })
 
-        // Rename _gitignore to .gitignore
-        const destFileName = file === '_gitignore' ? '.gitignore' : file
-        const dest = path.join(destDir, destFileName)
+            if (isCancel(projectName)) {
+                cancel('Operation cancelled.')
+                return
+            }
 
-        const stat = fs.statSync(src)
-
-        if (stat.isDirectory()) {
-            copyDir(src, dest, projectName)
+            targetDir = path.join(cwd, projectName.trim())
         } else {
-            if (file === 'package.json') {
-                const pkg = JSON.parse(fs.readFileSync(src, 'utf-8'))
-                pkg.name = projectName
-                fs.writeFileSync(dest, JSON.stringify(pkg, null, 2) + '\n', 'utf-8')
+            // If argument provided, validate it first
+            if (targetDir !== '.') {
+                const validationError = validateProjectName(targetDir)
+                if (validationError) {
+                    cancel(`Invalid project name "${targetDir}": ${validationError}`)
+                    return
+                }
+                projectName = targetDir
+                targetDir = path.join(cwd, targetDir)
             } else {
-                fs.copyFileSync(src, dest)
+                // Using current directory - validate the directory name
+                projectName = path.basename(cwd)
+                const validationError = validateProjectName(projectName)
+                if (validationError) {
+                    cancel(`Invalid current directory name "${projectName}": ${validationError}`)
+                    return
+                }
+                targetDir = '.'
             }
         }
+
+        // Check if directory exists and is not empty
+        if (targetDir !== '.' && existsSync(targetDir)) {
+            const files = readdirSync(targetDir)
+            if (files.length > 0) {
+                const overwrite = await confirm({
+                    message: `Directory "${projectName}" is not empty. Overwrite?`,
+                    initialValue: false
+                })
+
+                if (isCancel(overwrite) || !overwrite) {
+                    cancel('Operation cancelled.')
+                    return
+                }
+            }
+        }
+
+        // Scan templates with error handling
+        let templates
+        try {
+            templates = scanTemplates(TEMPLATES_DIR)
+        } catch (error) {
+            cancel(`${error.message}`)
+            return
+        }
+
+        // Language selection
+        const availableLanguages = [...new Set(templates.map(t => t.lang))].sort()
+        const lang = await select({
+            message: 'Choose your preferred language:',
+            options: availableLanguages.map(l => ({
+                label: l === 'js' ? 'JavaScript' : l === 'ts' ? 'TypeScript' : l.toUpperCase(),
+                value: l
+            })),
+        })
+
+        if (isCancel(lang)) {
+            cancel('Operation cancelled.')
+            return
+        }
+
+        // Database selection
+        const availableDbs = [...new Set(templates.filter(t => t.lang === lang).map(t => t.db))].sort()
+        const db = await select({
+            message: 'Choose your database:',
+            options: availableDbs.map(database => {
+                const label = database === 'none' ? 'No Database' : database.charAt(0).toUpperCase() + database.slice(1)
+                return {
+                    label: label,
+                    value: database
+                }
+            }),
+        })
+
+        if (isCancel(db)) {
+            cancel('Operation cancelled.')
+            return
+        }
+
+        let orm, selected
+
+        // Skip ORM selection if no database is chosen
+        if (db === 'none') {
+            selected = templates.find(t => t.lang === lang && t.db === 'none' && t.orm === 'none')
+        } else {
+            // ORM selection
+            const availableOrms = [...new Set(templates.filter(t => t.lang === lang && t.db === db).map(t => t.orm))].sort()
+            orm = await select({
+                message: 'Choose your ORM/ODM:',
+                options: availableOrms.map(ormOption => {
+                    const label = ormOption === 'none' ? 'No ORM' : ormOption.charAt(0).toUpperCase() + ormOption.slice(1)
+                    return {
+                        label: label,
+                        value: ormOption
+                    }
+                }),
+            })
+
+            if (isCancel(orm)) {
+                cancel('Operation cancelled.')
+                return
+            }
+
+            selected = templates.find(t => t.lang === lang && t.db === db && t.orm === orm)
+        }
+
+        if (!selected) {
+            const combination = db === 'none' ? `core-${lang}` : `${db}-${orm}-${lang}`
+            cancel(`Template not found for combination: \x1b[1m${combination}\x1b[0m`)
+            return
+        }
+
+        // Copy template
+        const templatePath = path.join(TEMPLATES_DIR, selected.dir)
+        await copyTemplate(templatePath, targetDir, projectName.trim())
+
+        // Success message with next steps
+        const isCurrentDir = targetDir === '.'
+        const cdCommand = isCurrentDir ? '' : `cd ${projectName}\n  `
+
+        note(
+            `Now run:\n\n  ${cdCommand}npm install\n  npm dev`,
+            'Project ready'
+        )
+
+        outro('Done.')
+
+    } catch (error) {
+        cancel(`✖ An unexpected error occurred: ${error.message}`)
     }
 }
-
-const promptProjectName = async () => {
-    const res = await prompts({
-        type: 'text',
-        name: 'projectName',
-        message: 'Enter your project name:',
-        initial: 'my-backend-app',
-        validate: (input) => input.trim() !== '' || 'Project name cannot be empty.',
-    })
-    return sanitizeProjectName(res.projectName)
-}
-
-const templateDir = path.resolve(__dirname, '../templates/template-js')
-
-if (!fs.existsSync(templateDir)) {
-    console.error(`❌ Template directory not found at ${templateDir}`)
-    process.exit(1)
-}
-
-let projectName, targetDir
-
-// Case 1: No args => ask for name
-if (args.length === 0) {
-    projectName = await promptProjectName()
-    targetDir = path.join(currentDir, projectName)
-}
-
-// Case 2: `.` => current directory
-else if (args[0] === '.') {
-    targetDir = currentDir
-    projectName = sanitizeProjectName(path.basename(currentDir))
-}
-
-// Case 3: `npm create mycli@latest folder-name`
-else {
-    projectName = sanitizeProjectName(args[0])
-    targetDir = path.join(currentDir, projectName)
-}
-
-if (fs.existsSync(targetDir) && fs.readdirSync(targetDir).length > 0) {
-    console.error(`❌ Directory "${projectName}" already exists and is not empty.`)
-    process.exit(1)
-}
-
-copyDir(templateDir, targetDir, projectName)
-
-console.log(`\n✅ Project "${projectName}" created in "${targetDir}"`)
-if (targetDir !== currentDir) {
-    console.log(`\nNext steps:`)
-    console.log(`   cd ${projectName}`)
-}
-console.log(`   npm install`)
-console.log(`   npm run dev\n`)
