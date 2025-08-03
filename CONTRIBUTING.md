@@ -4,25 +4,26 @@
 [![NPM Version](https://img.shields.io/npm/v/create-bkite?color=blue&label=npm)](https://www.npmjs.com/package/create-bkite)
 [![Total Downloads](https://img.shields.io/npm/dt/create-bkite)](https://www.npmjs.com/package/create-bkite)
 
-Welcome to the **bkite** community! 🚀 We're thrilled you’re here to help make our Express backend starter even better. Whether it’s code, bug fixes, new templates, or better docs, we welcome all contributions! Let’s build something awesome together.
+Welcome to the **bkite** community! We're thrilled you're here to help make our Express backend starter even better. Whether it's code, bug fixes, new templates, or better docs, we welcome all contributions! Let's build something awesome together.
 
 ---
 
 ## 🌟 Getting Started
 
-**bkite** is a **monorepo**, meaning we keep multiple projects in one repository under the `packages/` folder. Here’s how to get started:
+**bkite** is a **monorepo**, meaning we keep multiple projects in one repository under the `packages/` folder. Here's how to get started:
 
 ### Pick Your Project:
 
-* **create-bkite**: The main CLI tool (`npm create bkite@latest`) lives in `packages/create-bkite/`. This is the core of bkite right now, where you can improve the CLI that scaffolds Express apps! 🎉
-* **bkite-core**: The `packages/bkite-core/` folder is for future reusable components or shared logic. It’s early days, but we’re open to your ideas.
+* **[create-bkite](https://github.com/sreegopalsaha/bkite/tree/main/packages/create-bkite)**: The main CLI tool (`npm create bkite@latest`) lives here. This is the core of bkite right now, where you can improve the CLI that scaffolds Express apps! 🎉  
+
+* **[bkite-core](https://github.com/sreegopalsaha/bkite/tree/main/packages/bkite-core)**: This folder is for future reusable components or shared logic. It's early days, but we're open to your ideas.
 
 ### Fork and Clone:
 
 1.  **Fork the repo**: Go to `https://github.com/sreegopalsaha/bkite` and click the "Fork" button to create your own copy of the repo.
 2.  **Clone your forked repo**:
     ```bash
-    git clone [https://github.com/YOUR-USERNAME/bkite.git](https://github.com/YOUR-USERNAME/bkite.git)
+    git clone https://github.com/YOUR-USERNAME/bkite.git
     cd bkite
     ```
 3.  **Navigate to the project you want to work on**. For example, for the `create-bkite`:
@@ -38,7 +39,7 @@ Welcome to the **bkite** community! 🚀 We're thrilled you’re here to help ma
 
 ## 🛠️ How to Contribute
 
-We’re open to all contributions — code, bug fixes, new templates (like TypeScript or database support), documentation, or cool CLI ideas! Here’s the process:
+We're open to all contributions — code, bug fixes, new templates (like TypeScript or database support), documentation, or cool CLI ideas! Here's the process:
 
 ---
 
@@ -57,10 +58,9 @@ Inside `packages/create-bkite/`, you'll find:
 ```
 create-bkite/
 ├── bin/               # CLI entry point
-└── templates/         # All backend template folders (your main area)
+├── templates/         # All backend template folders (your main area)
+└── utils/             # Template scanning and utility functions
 ```
-
-
 
 > You will mostly be working inside `packages/create-bkite/`.
 
@@ -72,15 +72,21 @@ Before contributing, **use the CLI yourself** to understand how it works:
 
 ```bash
 npm create bkite@latest
-````
+```
 
-This helps you grasp how the scaffolding logic works and what the output structure looks like.
+This helps you grasp how the interactive selection works and what the output structure looks like. The CLI will now guide you through:
+
+1. **Language selection** (JavaScript/TypeScript)
+2. **Database selection** (PostgreSQL, MySQL, MongoDB, or None)
+3. **ORM/ODM selection** (Prisma, Drizzle, Mongoose)
+
+---
 
 ## 🧠 How the Template System Works
 
 Each backend stack combination has its own folder inside:
 
-`packages/create-bkite/templates/`
+[packages/create-bkite/templates](https://github.com/sreegopalsaha/bkite/tree/main/packages/create-bkite/templates)
 
 We follow this naming convention:
 
@@ -88,30 +94,34 @@ We follow this naming convention:
 
 All lowercase and hyphen-separated.
 
------
+**🎉 Dynamic Template Discovery**
+
+The CLI **automatically scans** the `templates/` folder and shows users only the combinations that actually exist. When you add a new template folder, it will automatically appear in the interactive selection menu — no need to manually update CLI logic!
+
+---
 
 ## 📂 Templates You Can Help Build
 
 Below is a list of required folder combinations. You can contribute one or more of them — just make sure each PR is atomic (one template = one PR).
 
-### ✅ Core Logic
+### ✅ Core Logic (No Database)
 
 * `core-js/` — already exists  
 * `core-ts/`
 
 ### ✅ PostgreSQL
 
-  * `postgres-prisma-js/`
-  * `postgres-prisma-ts/`
-  * `postgres-drizzle-js/`
-  * `postgres-drizzle-ts/`
+* `postgres-prisma-js/`
+* `postgres-prisma-ts/`
+* `postgres-drizzle-js/`
+* `postgres-drizzle-ts/`
 
 ### ✅ MySQL
 
-  * `mysql-prisma-js/`
-  * `mysql-prisma-ts/`
-  * `mysql-drizzle-js/`
-  * `mysql-drizzle-ts/`
+* `mysql-prisma-js/`
+* `mysql-prisma-ts/`
+* `mysql-drizzle-js/`
+* `mysql-drizzle-ts/`
 
 ### ✅ MongoDB
 
@@ -120,17 +130,17 @@ Below is a list of required folder combinations. You can contribute one or more 
 - `mongodb-prisma-js/`  
 - `mongodb-prisma-ts/`  
 
-**Example:** If you’re building a TypeScript backend using MongoDB and Mongoose, your folder should be: `mongodb-mongoose-ts/`
+**Example:** If you're building a TypeScript backend using MongoDB and Mongoose, your folder should be: `mongodb-mongoose-ts/`
 
------
+---
 
 ## 📐 Contribution Guidelines
 
-> ⚠️ **Adding a template won’t automatically make it show up in the CLI.**
+> ✅ **Adding a template will automatically make it show up in the CLI!**
 
-When users run `npm create bkite@latest`, your template won’t appear unless you also update the logic in `/bin/index.js`.
+When users run `npm create bkite@latest`, your new template will automatically appear in the interactive selection menu. The CLI dynamically scans the `templates/` folder and presents all available combinations.
 
-If /bin/index.js feels confusing, **no problem** — just skip it and we’ll wire it up for you later.  
+**Just add your template folder with the correct naming convention, and you're done!**
 
 ---
 
@@ -169,14 +179,15 @@ Use the following structure for your `package.json`:
   }
 }
 ```
------
+
+---
 
 ## 🔄 Contribution Workflow
 
 1.  **Fork & Clone**
 
     ```bash
-    git clone [https://github.com/YOUR-USERNAME/bkite.git](https://github.com/YOUR-USERNAME/bkite.git)
+    git clone https://github.com/YOUR-USERNAME/bkite.git
     cd bkite/packages/create-bkite
     npm install
     ```
@@ -189,9 +200,18 @@ Use the following structure for your `package.json`:
 
 3.  **Add Your Template Folder**
     Add your folder under `templates/`, using the correct naming convention.
-    Only commit your folder — no CLI logic or other files.
+    The CLI will automatically detect and include your template!
 
-4.  **Push & Open a Pull Request**
+4.  **Test Your Template**
+    
+    ```bash
+    # you can test the CLI directly using
+    node bin/index.js
+    ```
+    
+    Make sure your template appears in the interactive selection and creates a working project.
+
+5.  **Push & Open a Pull Request**
 
     ```bash
     git push origin add/mysql-prisma-ts
@@ -199,22 +219,19 @@ Use the following structure for your `package.json`:
 
     Then open a pull request against the `main` branch.
 
-    Link the issue number (e.g., “Closes \#42”) and clearly describe your changes.
+    Link the issue number (e.g., "Closes #42") and clearly describe your changes.
 
------
+---
 
 ## 🧹 Code Practices
 
-  * Keep code minimal and idiomatic
-  * Match formatting of `core-js`/`core-ts`
-  * Clear commit messages:
-      * `Add mysql-drizzle-ts template`
-      * `Fix MongoDB connection error in template`
-  * Avoid adding new dependencies unless necessary for your stack
-
------
-
-Straight to the point. Here you go:
+* Keep code minimal and idiomatic
+* Match formatting of `core-js`/`core-ts`
+* Clear commit messages:
+    * `Add mysql-drizzle-ts template`
+    * `Fix MongoDB connection error in template`
+* Avoid adding new dependencies unless necessary for your stack
+* Test your template through the interactive CLI before submitting
 
 ---
 
@@ -223,7 +240,7 @@ Straight to the point. Here you go:
 Whether you want to **contribute**, **understand the project better**, or just see what we're building —
 **join our Discord server**.
 
-We’re also looking for **mentors** to join the **core team** and help:
+We're also looking for **mentors** to join the **core team** and help:
 
 * Review and merge pull requests
 * Collaborate with other core members
@@ -239,5 +256,5 @@ Just vibe and build.
 
 Your contributions matter — even a single folder or typo fix helps move bkite forward.
 
-We’re building a tool for backend developers to move faster, smarter, and cleaner.
-Let’s build **bkite**, together.
+We're building a tool for backend developers to move faster, smarter, and cleaner.
+Let's build **bkite**, together.

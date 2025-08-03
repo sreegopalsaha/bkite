@@ -1,6 +1,6 @@
 {
   "name": "create-bkite",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "bin": {
     "create-bkite": "bin/index.js"
@@ -23,6 +23,7 @@
     "type": "git",
     "url": "https://github.com/sreegopalsaha/bkite"
   },
+  "homepage": "https://github.com/sreegopalsaha/bkite/tree/main/packages/create-bkite#readme",
   "dependencies": {
     "@clack/prompts": "^0.11.0"
   }
