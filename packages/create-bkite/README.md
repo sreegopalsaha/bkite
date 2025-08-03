@@ -22,50 +22,67 @@
 
 ## ✨ Features
 
-* **⚙️ Interactive CLI**: Simple prompts guide you through a quick setup.
+* **🪁 Interactive CLI**: Beautiful prompts guide you through language, database, and ORM selection.
+* **🎯 Multiple Templates**: Choose from JavaScript/TypeScript with various database and ORM combinations.
 * **📁 Scalable Structure**: A modular, production-ready folder structure from the start.
-* **🔄 Core Functionality**: Comes with built-in error handling, CORS support, and `.env` setup.
+* **🔄 Core Functionality Included**: Comes with built-in error handling, CORS support, and environment variable setup.
 * **⚡ Blazing Fast**: Go from zero to a running server in seconds.
-
+* **🔌 Easy to Customize**: The clean boilerplate is easy to modify and extend.
 ---
 
 ## 🚀 Usage
 
-### 1. Create Your Project
-
-Run the following command and follow the prompts:
+To create a new `bkite` project, run the following command in your terminal:
 
 ```bash
 npm create bkite@latest
 ```
 
-You can also specify a project name or target the current directory:
+Then the CLI will guide you through:
 
-```bash
-# Create in a new folder named 'my-app'
-npm create bkite@latest my-app
-```
+1. **📝 Project Name**: Enter your project name (with validation)
+2. **💻 Language Selection**: Choose JavaScript or TypeScript
+3. **🗄️ Database Selection**: Pick PostgreSQL, MySQL, MongoDB, or none
+4. **🔧 ORM/ODM Selection**: Select Prisma, Drizzle, Mongoose
 
-```bash
-# Create in the current directory
-npm create bkite@latest .
-```
+Once the template is generated:
 
-### 2. Start the Server
+1. **Navigate to your project directory:**
 
-Once the project is generated, navigate into the directory:
+   ```bash
+   cd your-backend-app
+   ```
+2. **Install dependencies:**
 
-```bash
-cd your-backend-app
-npm install
-npm run dev
-```
+   ```bash
+   npm install
+   ```
+3. **Start the development server:**
 
-Your new Express server will be live at `http://localhost:3000`.
+   ```bash
+   npm run dev
+   ```
+
+Your new Express.js server will be running at `http://localhost:3000`.
+
+### ⚙️ Additional Commands
+
+* **Create in a specific folder:**
+
+  ```bash
+  # Creates the project inside a new folder named 'my-app'
+  npm create bkite@latest my-app
+  ```
+* **Create in the current directory:**
+
+  ```bash
+  # Scaffolds the project in the current working directory
+  npm create bkite@latest .
+  ```
 
 -----
 
-## 📁 What's Included?
+## 📁 Generated Project Structure
 
 You get a clean, organized, and scalable project structure right out of the box.
 
@@ -95,7 +112,6 @@ To get started:
 
   * **Visit our GitHub repository** to understand our codebase: [https://github.com/sreegopalsaha/bkite](https://github.com/sreegopalsaha/bkite)
   * **Make an issue** on GitHub to discuss your ideas with other contributors and admins: [https://github.com/sreegopalsaha/bkite/issues](https://github.com/sreegopalsaha/bkite/issues)
-  * Once aligned, you can **start coding**\!
 
 You can also **join our Discord server** to ask questions or collaborate with other contributors and admins: [Discord](https://discord.gg/p9GubC7ZMP)
 
