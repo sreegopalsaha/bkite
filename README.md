@@ -23,7 +23,8 @@ It’s perfect for everyone, from beginners learning Express.js to professionals
 
 ## ✨ Features
 
-* **⚙️ Interactive CLI**: Simple prompts guide you through project setup.
+* **🪁 Interactive CLI**: Beautiful prompts guide you through language, database, and ORM selection.
+* **🎯 Multiple Templates**: Choose from JavaScript/TypeScript with various database and ORM combinations.
 * **📁 Scalable Structure**: A modular, production-ready folder structure from the start.
 * **🔄 Core Functionality Included**: Comes with built-in error handling, CORS support, and environment variable setup.
 * **⚡ Blazing Fast**: Go from zero to a running server in seconds.
@@ -37,7 +38,14 @@ To create a new `bkite` project, run the following command in your terminal:
 npm create bkite@latest
 ```
 
-Follow the interactive prompts to name and configure your project. Once it's done:
+Then the CLI will guide you through:
+
+1. **📝 Project Name**: Enter your project name (with validation)
+2. **💻 Language Selection**: Choose JavaScript or TypeScript
+3. **🗄️ Database Selection**: Pick PostgreSQL, MySQL, MongoDB, or none
+4. **🔧 ORM/ODM Selection**: Select Prisma, Drizzle, Mongoose
+
+Once the template is generated:
 
 1. **Navigate to your project directory:**
 
@@ -117,27 +125,44 @@ bkite/
 ├── CONTRIBUTING.md
 └── README.md             # You are here!
 ```
-
 ### How to Contribute
 
-1. Fork the repository and create a new branch.
-2. Navigate to the CLI package: `cd packages/create-bkite`.
-3. Make your changes, whether it's fixing a bug, adding a feature, or improving documentation.
-4. Open a pull request with a clear description of your changes.
+We suggest reading the **[CONTRIBUTING.md](https://github.com/sreegopalsaha/bkite/blob/main/CONTRIBUTING.md)** - it explains the full contribution process in simple language.
 
-Check out the [open issues](https://github.com/sreegopalsaha/bkite/issues) to find a good place to start!
+#### 1. Fork this repository
 
-## 🌱 Roadmap
+Click on the "Fork" button at the top-right to copy the repo to your GitHub account.
 
-We have big plans for `bkite`! Here's what we're working on next:
+#### 2. Clone your fork
 
-* [x] JavaScript project template.
-* [ ] TypeScript project template.
-* [ ] Database options: SQLite, MySQL, PostgreSQL, or none.
-* [ ] ORM/ODM support: Prisma, Drizzle.
-* [ ] Toggles for common middleware (e.g., authentication, logging).
+```bash
+git clone https://github.com/your-username/bkite.git && cd bkite
+```
 
-Have an idea? [Open an issue](https://github.com/sreegopalsaha/bkite/issues/new) or join the discussion on Discord.
+#### 3. Create a new branch
+
+```bash
+git switch -c your-branch-name
+```
+
+#### 4. Make your changes
+
+Bug fixes, new features, documentation - all contributions are welcome.
+
+#### 5. Push your branch
+
+```bash
+git push origin your-branch-name
+```
+
+#### 6. Open a pull request
+
+Make sure your PR includes a clear and concise description of the changes.
+
+---
+
+💡 **Explore ideas:**
+Check out the [open issues](https://github.com/sreegopalsaha/bkite/issues) to find a good place to start or [create a new one](https://github.com/sreegopalsaha/bkite/issues/new) to start a discussion.
 
 ## ❤️ Connect with Us
 
