@@ -23,6 +23,7 @@
     "type": "git",
     "url": "https://github.com/sreegopalsaha/bkite"
   },
+  "homepage": "https://github.com/sreegopalsaha/bkite/tree/main/packages/create-bkite#readme",
   "dependencies": {
     "@clack/prompts": "^0.11.0"
   }
