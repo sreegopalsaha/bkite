@@ -1,11 +1,11 @@
+[![OSCI-Project-Banner.png](https://i.postimg.cc/76mJvBmF/OSCI-Project-Banner.png)](https://postimg.cc/8JfzMb84)
+
 <p align="center">
   <a href="https://github.com/sreegopalsaha/bkite" target="_blank" rel="noopener noreferrer">
-    <img width="260" src="https://github.com/user-attachments/assets/8a7d37bf-ffb6-440e-a788-bf4cbc03d51d" alt="bkite logo">
+    <img width="260" src="https://github.com/user-attachments/assets/f8031bc0-4ff1-4da0-adbf-82b90e185fbc" alt="bkite logo">
   </a>
 </p>
-
 <h1 align="center">BKITE - Instant Backend Starter</h1>
-
 <p align="center">
   <strong>The fastest way to kickstart your Express.js backend project.</strong>
 </p>
