@@ -163,7 +163,7 @@ async function main() {
         const cdCommand = isCurrentDir ? '' : `cd ${projectName}\n  `
 
         note(
-            `Now run:\n\n  ${cdCommand}npm install\n  npm dev`,
+            `Now run:\n\n  ${cdCommand}npm install\n  npm run dev`,
             'Project ready'
         )
 
