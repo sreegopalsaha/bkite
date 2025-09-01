@@ -87,18 +87,19 @@ Your new project will have the following structure, designed for scalability and
 ```
 my-backend-app/
 ├── src/
-│   ├── configs/        # Database connection setup
-│   ├── controllers/    # Route logic and request handling
-│   ├── middlewares/    # Custom Express middlewares
-│   ├── models/         # Mongoose schemas
-│   ├── routes/         # Express route definitions
-│   ├── utils/          # Utility classes (ApiResponse, ApiError)
-│   ├── app.js          # Express app configuration
-│   └── index.js        # Server entry point
-├── .env                # Environment variables
-├── .gitignore          # Git ignore file
-├── package.json        # Project dependencies and scripts
-└── README.md           # Project documentation
+│   ├── configs/         # Database connection setup
+│   ├── constants/       # Application-wide constants (e.g., HttpStatus, roles, messages)
+│   ├── controllers/     # Route logic and request handling
+│   ├── middlewares/     # Custom Express middlewares
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # Express route definitions
+│   ├── utils/           # Utility classes (ApiResponse, ApiError)
+│   ├── app.ts           # Express app configuration
+│   └── index.ts         # Server entry point
+├── .env                 # Environment variables
+├── .gitignore           # Git ignore file
+├── package.json         # Project dependencies and scripts
+└── README.md            # Project documentation
 ```
 
 ## 🤝 Contributing to bkite
