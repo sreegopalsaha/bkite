@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import asyncHandler from "../utils/asyncHandler.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
+import asyncHandler from "../utils/asyncHandler";
+import { ApiResponse } from "../utils/ApiResponse";
 import { ApiError } from "../utils/ApiError.js";
+import HttpStatus from "../constants/httpStatusCodes";
 
 export const getExample = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         res
-          .status(200)
+          .status(HttpStatus.OK)
           .json(new ApiResponse(200, {}, "Example route fetched successfully"));
     }
 );

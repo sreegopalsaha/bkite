@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "../utils/ApiError";
+import HttpStatus from "../constants/httpStatusCodes";
 
 const globalErrorHandler = (
     err: unknown,
@@ -18,7 +19,7 @@ const globalErrorHandler = (
 
     // Handle generic errors
     const error = err as Error;
-    return res.status(500).json({
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: error.message || "Internal Server Error",
         errors: [],
