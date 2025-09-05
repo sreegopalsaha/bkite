@@ -107,7 +107,7 @@ Below is a list of required folder combinations. You can contribute one or more 
 ### ✅ Core Logic (No Database)
 
 * `core-js/` — already exists  
-* `core-ts/`
+* `core-ts/` — already exists 
 
 ### ✅ PostgreSQL
 
