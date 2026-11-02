@@ -5,8 +5,14 @@
   "bin": {
     "create-bkite": "bin/index.js"
   },
+  "files": [
+    "bin",
+    "templates",
+    "utils",
+    "README.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test/*.test.js"
   },
   "author": "Sree Gopal Saha",
   "license": "MIT",
