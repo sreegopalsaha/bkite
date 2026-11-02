@@ -1,12 +1,8 @@
-import dotenv from "dotenv";
-import { app } from "./app"; 
-import connectDB from "./configs/db.config"; 
+import "dotenv/config";
+import { app } from "./app.js";
+import connectDB from "./configs/db.config.js";
 
-
-dotenv.config();
-
-
-const PORT: number = parseInt(process.env.PORT || "5000", 10);
+const PORT: number = parseInt(process.env.PORT || "3000", 10);
 
 const startServer = async (): Promise<void> => {
   try {
@@ -16,7 +12,7 @@ const startServer = async (): Promise<void> => {
     });
   } catch (error) {
     console.error("ERROR WHILE CONNECTING TO DB:", error);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
