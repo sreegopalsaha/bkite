@@ -40,35 +40,37 @@ async function main() {
                 return
             }
 
-            targetDir = path.join(cwd, projectName.trim())
+            projectName = projectName.trim()
+            targetDir = path.resolve(cwd, projectName)
         } else {
             // If argument provided, validate it first
             if (targetDir !== '.') {
-                const validationError = validateProjectName(targetDir)
+                projectName = path.basename(targetDir)
+                const validationError = validateProjectName(projectName)
                 if (validationError) {
-                    cancel(`Invalid project name "${targetDir}": ${validationError}`)
+                    cancel(`Invalid project name "${projectName}": ${validationError}`)
                     return
                 }
-                projectName = targetDir
-                targetDir = path.join(cwd, targetDir)
+                targetDir = path.resolve(cwd, targetDir)
             } else {
-                // Using current directory - validate the directory name
-                projectName = path.basename(cwd)
+                // Using current directory - sanitize directory name for npm package name
+                projectName = path.basename(cwd).toLowerCase().replace(/[^a-z0-9-_]/g, '-')
                 const validationError = validateProjectName(projectName)
                 if (validationError) {
                     cancel(`Invalid current directory name "${projectName}": ${validationError}`)
                     return
                 }
-                targetDir = '.'
+                targetDir = cwd
             }
         }
 
         // Check if directory exists and is not empty
-        if (targetDir !== '.' && existsSync(targetDir)) {
+        if (existsSync(targetDir)) {
             const files = readdirSync(targetDir)
             if (files.length > 0) {
+                const dirDisplayName = targetDir === cwd ? 'Current directory' : `Directory "${projectName}"`
                 const overwrite = await confirm({
-                    message: `Directory "${projectName}" is not empty. Overwrite?`,
+                    message: `${dirDisplayName} is not empty. Overwrite existing files?`,
                     initialValue: false
                 })
 
@@ -159,7 +161,7 @@ async function main() {
         await copyTemplate(templatePath, targetDir, projectName.trim())
 
         // Success message with next steps
-        const isCurrentDir = targetDir === '.'
+        const isCurrentDir = path.resolve(targetDir) === cwd
         const cdCommand = isCurrentDir ? '' : `cd ${projectName}\n  `
 
         note(

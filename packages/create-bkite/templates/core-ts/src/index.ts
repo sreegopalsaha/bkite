@@ -1,10 +1,7 @@
-import dotenv from "dotenv";
-import { app } from "./app";
+import "dotenv/config";
+import { app } from "./app.js";
 
-// Configure environment variables
-dotenv.config();
-
-const PORT: number = parseInt(process.env.PORT || "8000", 10);
+const PORT: number = parseInt(process.env.PORT || "3000", 10);
 
 const startServer = (): void => {
   app.listen(PORT, () => {

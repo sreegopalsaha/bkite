@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import exampleRouter from "./routes/example.routes"; 
-import globalErrorHandler from "./middlewares/globalErrorHandler.middleware"; 
+import exampleRouter from "./routes/example.routes.js";
+import globalErrorHandler from "./middlewares/globalErrorHandler.middleware.js";
 
 const app: Express = express();
 
@@ -17,7 +17,7 @@ app.get("/", (req: Request, res: Response) => {
     res.send("Hello from the server!");
 });
 
-app.use("/api/v1/example", exampleRouter); 
+app.use("/example", exampleRouter);
 app.use(globalErrorHandler);
 
 export { app };
